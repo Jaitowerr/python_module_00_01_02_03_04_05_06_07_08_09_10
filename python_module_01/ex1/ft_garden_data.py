@@ -1,8 +1,12 @@
 class Plant:
+
     def __init__(self, name: str, height: int, age: int) -> None:
         self.name = name
         self.height = height
         self.age_days = age
+
+    def show(self) -> None:
+        print(f' - {self.name}: {self.height}cm, {self.age_days} days old')
 
 
 def main() -> None:
@@ -14,7 +18,7 @@ def main() -> None:
 
     print('=== Garden Plant Registry ===')
     for i in garden:
-        print(f'{i.name}: {i.height}cm, {i.age_days} days old')
+        i.show()
 
 
 if __name__ == "__main__":

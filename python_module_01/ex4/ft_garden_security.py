@@ -1,13 +1,19 @@
 class SecurePlant:
 
-    def __init__(self, name: str, height: int, age: int) -> None:
+    def __init__(self, name: str, height: float, age: int) -> None:
         self.name = name
-        self._height = 0
-        self._age_days = 0
-        print(f' - Plant created: {self.name}')
-        # No se debe pero se obliga para que aparezca primero
-        self.set_height(height)
-        self.set_age(age)
+        self._height = self._validate_height(height)
+        self._age_days = self._validate_age(age)
+
+    def _validate_height(self, height: float) -> float:
+        if height <= 0:
+            return 0.0
+        return round(height, 2)
+
+    def _validate_age(self, age: int) -> int:
+        if age <= 0:
+            return 0
+        return age
 
     def get_height(self) -> int:
         return self._height
@@ -17,25 +23,23 @@ class SecurePlant:
 
     def set_height(self, value: int) -> None:
         if value < 0:
-            salto = '\n'
-            msg = f'**Invalid operation attempted: height {value}cm [REJECTED]'
-            print(salto + msg)
-            print('**Security: Negative height rejected')
+            msg = f'**{self.name}: Error, height can''t be negative'
+            print(msg)
+            print('***Height update rejected')
 
         else:
-            self._height = value
-            print(f' - Height updated: {value}cm [OK]')
+            self._height = round(value, 2)
+            print(f' - Height updated: {self.get_height()}cm')
 
     def set_age(self, value: int) -> None:
         if value < 0:
-            salto = '\n'
-            msg = f'**Invalid operation attempted: age {value} days [REJECTED]'
-            print(salto + msg)
-            print('***Security: Negative age rejected')
+            msg = f'**{self.name}: Error, age can''t be negative'
+            print(msg)
+            print('***Age update rejected')
 
         else:
-            self._age_days = value
-            print(f' - Age updated: {value} days [OK]')
+            self    ._age_days = value
+            print(f' - Age updated: {self.get_age()} days')
 
     def get_info(self) -> str:
         h = self.get_height()
@@ -46,8 +50,15 @@ class SecurePlant:
 def main() -> None:
     print('=== Garden Security System ===')
 
-    rose = SecurePlant('Rose', 50, 30)
+    rose = SecurePlant('Rose', 15, 10)
+    print(f'- Plant created: {rose.name}, {rose.get_height()}cm,'
+          f' {rose.get_age()} days')
 
+    print()
+    rose.set_height(10)
+    rose.set_age(20)
+
+    print()
     rose.set_height(-5)
     rose.set_age(-500)
 
