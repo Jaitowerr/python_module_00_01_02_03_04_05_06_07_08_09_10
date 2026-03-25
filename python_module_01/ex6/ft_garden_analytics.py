@@ -1,5 +1,9 @@
+#!/usr/bin/env python3
+
 class Plant:
+
     class Statistics:
+
         def __init__(self):
             self.grow_calls = 0
             self.age_calls = 0
@@ -37,6 +41,7 @@ class Plant:
 
 
 class Flower(Plant):
+
     def __init__(self, name: str, height: float, age: int, color: str) -> None:
         super().__init__(name, height, age)
         self.color = color
@@ -56,6 +61,7 @@ class Flower(Plant):
 
 
 class Seed(Flower):
+
     def __init__(self, name: str, height: float, age: int, color: str) -> None:
         super().__init__(name, height, age, color)
         self.seeds = 0
@@ -100,13 +106,11 @@ def display_statistics(plant: Plant) -> None:
 def main():
     print('=== Garden statistics ===')
 
-    # === Check year-old ===
     print('=== Check year-old')
     print(f'Is 30 days more than a year? -> {Plant.is_older_year(30)}')
     print(f'Is 400 days more than a year? -> {Plant.is_older_year(400)}')
     print()
 
-    # === Flower ===
     print('=== Flower')
     rose = Flower('Rose', 15.0, 10, 'red')
     rose.show()
@@ -118,7 +122,6 @@ def main():
     display_statistics(rose)
     print()
 
-    # === Tree ===
     print('=== Tree')
     oak = Tree('Oak', 200.0, 365, 5.0)
     oak.show()
@@ -128,7 +131,6 @@ def main():
     display_statistics(oak)
     print()
 
-    # === Seed ===
     print('=== Seed')
     sunflower = Seed('Sunflower', 80.0, 45, 'yellow')
     sunflower.show()
@@ -141,7 +143,6 @@ def main():
     display_statistics(sunflower)
     print()
 
-    # === Anonymous ===
     print('=== Anonymous')
     unknown = Plant.anonymous()
     unknown.show()

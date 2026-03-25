@@ -1,4 +1,7 @@
+#!/usr/bin/env python3
+
 def main() -> None:
+
     name = 'Rosa'
     height = 25
     age = 30

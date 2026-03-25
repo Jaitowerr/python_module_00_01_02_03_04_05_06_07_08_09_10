@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 class SecurePlant:
 
     def __init__(self, name: str, height: float, age: int) -> None:
@@ -55,8 +57,8 @@ def main() -> None:
           f' {rose.get_age()} days')
 
     print()
-    rose.set_height(10)
-    rose.set_age(20)
+    rose.set_height(25)
+    rose.set_age(30)
 
     print()
     rose.set_height(-5)
