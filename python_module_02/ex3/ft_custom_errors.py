@@ -1,20 +1,17 @@
 #! /usr/bin/env python3
 
 class GardenError(Exception):
-
     def __init__(self, msg: str = 'Unknow garden error') -> None:
         super().__init__(msg)
 
 
 class PlantError(GardenError):
-
     def __init__(self, msg: str = 'Unknown plant error') -> None:
         # self.msg = msg
         super().__init__(msg)
 
 
 class WaterError(GardenError):
-
     def __init__(self, msg: str = 'Unknown water error') -> None:
         # self.msg = msg
         super().__init__(msg)
@@ -40,12 +37,14 @@ def test_errors():
     print("=== Custom Garden Errors Demo ===")
 
     print('\nTesting PlantError...')
+
     try:
         life(name, bool_life)
     except PlantError as e:
         print(f' **Caught{e.__class__.__name__}: {e}')
 
     print('\nTesting WaterError...')
+
     try:
         water(bool_water)
     except WaterError as e:
