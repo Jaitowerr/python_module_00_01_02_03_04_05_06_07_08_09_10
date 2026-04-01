@@ -25,20 +25,19 @@ def main() -> None:
           '=== Player Score Analytics ===\n'
           '===============================\n')
     list_argv = sys.argv
-    size_list = len(list_argv[1:])
     score_validos = []
 
     for i in list_argv[1:]:
         try:
             score_validos += [int(i)]
-        except ValueError as e:
+        except ValueError:
             print(f'Invalid parameter: {i}')
 
     if len(score_validos) >= 1:
         score(score_validos)
     else:
         print(f'  *** No scores provided. Usage: python3 {sys.argv[0]} '
-        '<score1> <score2> ...')
+              '<score1> <score2> ...')
 
 
 if __name__ == '__main__':

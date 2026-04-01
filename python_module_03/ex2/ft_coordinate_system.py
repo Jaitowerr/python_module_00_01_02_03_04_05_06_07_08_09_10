@@ -9,26 +9,29 @@ def formula_math(tupla1: tuple, tupla2: tuple = (0, 0, 0)) -> float:
     return math.sqrt((x2-x1)**2 + (y2-y1)**2 + (z2-z1)**2)
 
 
-def get_player_pos() -> None:
+def get_player_pos() -> tuple:
     input_entrada = input(' - Enter coordinates: ')
     parametres = 0
     try:
-        input_entrada = input_entrada.split(',')
-        for i in input_entrada:
+        partes_input_entrada = input_entrada.split(',')
+        for i in partes_input_entrada:
             parametres += 1
             try:
-                i = float(i)
+                i_float = float(i)
             except ValueError:
-                raise ValueError(f'''Parameter '{i}' is not a valid number' ''')
-            if i < 0 or i > 100:
+                raise ValueError(f'''Parametr '{i}' '''
+                                 'is not a valid number')
+            if i_float < 0 or i_float > 100:
                 raise ValueError('Coordinates must be between 0 and 100')
         if parametres != 3:
             raise ValueError('Exactly three coordinates are required')
             # i += 0.00
     except ValueError as e:
-        print(f"Invalid syntax: {e}")
+        print(f'Invalid syntax: {e}')
         return get_player_pos()
-    return (float(input_entrada[0]), float(input_entrada[1]), float(input_entrada[2]))
+    return (float(partes_input_entrada[0]),
+            float(partes_input_entrada[1]),
+            float(partes_input_entrada[2]))
 
 
 def main():
