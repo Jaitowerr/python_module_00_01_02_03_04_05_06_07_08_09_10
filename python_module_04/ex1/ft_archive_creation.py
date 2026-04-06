@@ -1,30 +1,71 @@
 #! /usr/bin/env python3
 
-def main() -> None:
-    print('=== ARCHIVOS CIBERNÉTICOS - SISTEMA DE PRESERVACIÓN ===')
+import sys
+
+
+def ft_ancient_text(filename: str) -> None:
+    print(' === ARCHIVOS CIBERNÉTICOS - SISTEMA DE RECUPERACIÓN DE DATOS ==='
+          '\n')
+    archive = None
+
     try:
-        rut = '../new_discovery.txt'
-        with open(rut, 'x') as archive:
-            print('Inicializando nueva unidad de almacenamiento: '
-                  f'{archive.name.split('/')[-1]}')
-            print('Unidad de almacenamiento creada con éxito...\n')
-            print('Escribiendo datos de entrada...')
-            entry_one = '[ENTRY 001] New quantum algorithm discovered\n'
-            entry_two = '[ENTRY 002] Efficiency increased by 347%\n'
-            entry_three = '[ENTRY 003] Archived by Data Archivist trainee'
-            archive.write(entry_one + entry_two + entry_three)
-            print(entry_one + entry_two + entry_three)
-        print('\nInscripción de datos completa. '
-              'Unidad de almacenamiento sellada\n'
-              f'Archivo: {archive.name.split('/')[-1]} '
-              'listo para preservación a largo plazo.')
-    except FileNotFoundError:
-        print('***Error: la ruta no existe')
-    except PermissionError:
-        print('***Error: no tienes permisos para crear el archivo')
-    except FileExistsError:
-        print('***El archivo ya existe', rut.split('/')[-1])
-        print('***Comprueba el archivo en la ruta:', rut)
+        print('Accediendo al almacén de datos: '
+              f'{filename}\n')
+        archive = open(filename, 'r')
+        print('Conexión establecida...\n'
+              'Datos recuperados:\n')
+        print(archive.read())
+
+    except (PermissionError, FileNotFoundError) as e:
+        print(f'Error al abrir el archivo \'{filename}\': {e}')
+
+    finally:
+        if archive:
+            archive.close()
+            print(f'\n----\nArchivo \'{filename}\' cerrado.')
+            new_archive(filename)
+
+
+def new_archive(filename: str) -> None:
+    print('\nTransformar datos:\n---\n')
+    archive_read = None
+    archive_new = None
+
+    try:
+        archive_read = open(filename, 'r')
+        content = archive_read.read()
+        for line in content.splitlines():
+            print(line + '#')
+        name = input('\n---\n'
+                     'Introduce un nuevo nombre de archivo (o deja vacío): ')
+        if name:
+            archive_new = open(name, 'w')
+            lines = content.splitlines()
+            for line in lines:
+                if line == lines[-1]:
+                    archive_new.write(line + '#')
+                else:
+                    archive_new.write(line + '#\n')
+            print('Guardando datos en ', name, '.')
+            print('Datos guardados en el archivo ', name, '.')
+        else:
+            print('No se guardarán los datos.')
+
+    except OSError as e:
+        print(f'Error {e}')
+
+    finally:
+        if archive_read:
+            archive_read.close()
+        if archive_new:
+            archive_new.close()
+
+
+def main() -> None:
+    if len(sys.argv) != 2:
+        print('Por favor, usa: ft_archive_creation.py <file>')
+        return
+    ft_ancient_text(sys.argv[1])
 
 
 if __name__ == '__main__':

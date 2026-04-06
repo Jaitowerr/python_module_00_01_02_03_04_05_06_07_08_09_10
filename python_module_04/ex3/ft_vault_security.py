@@ -1,31 +1,54 @@
 #! /usr/bin/env python3
 
-def main() -> None:
-    print('=== ARCHIVOS CIBERNÉTICOS -SISTEMA DE SEGURIDAD DE LA BÓVEDA ===\n')
-    print('Iniciando acceso seguro a la bóveda...')
-
+def secure_archive(filename: str,
+                   action: str = 'read',
+                   content: str = ''
+                   ) -> tuple[bool, str]:
     try:
-        print('Conexión a la bóveda establecida con protocolos de seguridad\n')
-        url = '../data-generator-tools/classified_data.txt'
-        with open(url, 'r') as archive:
-            print('EXTRACCIÓN SEGURA:')
-            print(archive.read(), '\n')
+        if filename:
+            if action == 'write':
+                with open(filename, 'a') as file:
+                    file.write(content)
+                return (True, 'Contenido escrito correctamente en el archivo')
+            elif action == 'read':
+                with open(filename, 'r') as file:
+                    data = file.read()
+                return (True, data)
+            else:
+                raise Exception('Acción no válida, read o write')
+        else:
+            raise Exception('Filename no puede estar vacío')
 
-        url = '../data-generator-tools/security_protocols.txt'
-        with open(url, 'a') as archive:
-            print('SECURE PRESERVATION:')
-            archive.write('\nLa bóveda se sella automáticamente al finalizar')
-        with open(url, 'r') as archive:
-            print(archive.read())
+    except Exception as e:
+        return (False, str(e))
 
-    except FileNotFoundError:
-        print('Error: archivo no encontrado')
-    except PermissionError:
-        print('Error: no tienes permisos')
 
-    finally:
-        print('\nTodas las operaciones de la bóveda completadas '
-              'con máxima seguridad')
+def main() -> None:
+    print('=== ARCHIVOS CIBERNÉTICOS -SISTEMA DE SEGURIDAD ===\n')
+
+    print('Iniciando acceso seguro a la bóveda...\n')
+
+    print('Usando \'secure_archive\' para leer desde un archivo inexistente:')
+    print(secure_archive('/not/existing/file'))
+    print()
+
+    print('Usando \'secure_archive\' para leer desde un archivo inaccesible:')
+    print(secure_archive('/etc/master.passwd'))
+    print()
+
+    print('Usando \'secure_archive\' para leer desde un archivo')
+    print(secure_archive('ancient_fragment.txt',
+                         'read',
+                         'Contenido de prueba'))
+    print()
+
+    print('Usando \'secure_archive\' para escribir contenido')
+    print(secure_archive('ancient_fragment.txt',
+                         'write',
+                         '\nContenido de prueba'))
+    print()
+
+    print(secure_archive('ancient_fragment.txt'))
 
 
 if __name__ == '__main__':
