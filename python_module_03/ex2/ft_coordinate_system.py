@@ -34,7 +34,7 @@ def get_player_pos() -> tuple:
             float(partes_input_entrada[2]))
 
 
-def main():
+def main() -> None:
     print('\n========================================\n'
           '=== Sistema de Coordenadas del Juego ===\n'
           '========================================')

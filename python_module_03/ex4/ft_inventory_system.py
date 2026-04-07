@@ -22,7 +22,6 @@ def dict_errors(list_argv: list) -> dict:
 
         except ValueError as e:
             print(f'******* Error type: {e} *******')
-            # continue
     return dict_argv
 
 
@@ -50,10 +49,11 @@ def print_values(dict_argv: dict, total_values: int) -> None:
 
 def main() -> None:
     print('=== Análisis del Sistema de Inventario ===')
+    dict_argv = dict()
+
     if len(sys.argv[1:]) >= 1:
         list_argv = sys.argv[1:]
         dict_argv = dict_errors(list_argv)
-
         if dict_argv:
 
             print(f'\nGot inventory: {dict_argv}')
@@ -66,10 +66,10 @@ def main() -> None:
                   f'items: {total_values}')
             print_values(dict_argv, total_values)
 
-            dict_argv.update({'magic_item': 1})
-            print(f'\nUpdated inventory: {dict_argv}')
     else:
         print('****Enter elements <key>:<value>')
+    dict_argv.update({'magic_item': 1})
+    print(f'\nUpdated inventory: {dict_argv}')
 
 
 if __name__ == '__main__':
