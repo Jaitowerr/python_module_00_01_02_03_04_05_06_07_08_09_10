@@ -35,10 +35,11 @@ def new_archive(filename: str) -> None:
         for line in content.splitlines():
             print(line + '#')
         sys.stdout.write('\n---\nIntroduce un nuevo nombre '
-                         'de archivo (o deja vacío): ')
+                         'de archivo (o deja vacío para cancelar): ')
         sys.stdout.flush()
         name = sys.stdin.readline().strip()
         if name:
+            print('Guardando datos en ', name, '...')
             archive_new = open(name, 'w')
             lines = content.splitlines()
             for line in lines:
@@ -46,13 +47,13 @@ def new_archive(filename: str) -> None:
                     archive_new.write(line + '#')
                 else:
                     archive_new.write(line + '#\n')
-            print('Guardando datos en ', name, '.')
             print('Datos guardados en el archivo ', name, '.')
         else:
             print('No se guardarán los datos.')
 
     except OSError as e:
         print(f'[STDEeeRR] Error al abrir el archivo \'{name}\': {e}',
+              '\nDatos no guardados.',
               file=sys.stderr)
 
     finally:

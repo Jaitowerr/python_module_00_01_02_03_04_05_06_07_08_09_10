@@ -33,7 +33,7 @@ def main() -> None:
     print()
 
     print('Usando \'secure_archive\' para leer desde un archivo inaccesible:')
-    print(secure_archive('/etc/master.passwd'))
+    print(secure_archive('/root/secret.txt'))
     print()
 
     print('Usando \'secure_archive\' para leer desde un archivo')
@@ -43,12 +43,12 @@ def main() -> None:
     print()
 
     print('Usando \'secure_archive\' para escribir contenido')
-    print(secure_archive('ancient_fragment.txt',
+    print(secure_archive('new_archive_writea.txt',
                          'write',
-                         '\nContenido de prueba'))
+                         'Contenido de prueba\n'))
     print()
 
-    print(secure_archive('ancient_fragment.txt'))
+    print(secure_archive('new_archive_writea.txt'))
 
 
 if __name__ == '__main__':
