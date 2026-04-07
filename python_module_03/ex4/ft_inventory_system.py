@@ -15,6 +15,9 @@ def dict_errors(list_argv: list) -> dict:
             valor = int(split_i[1])
             if clave in dict_argv:
                 raise ValueError(f'''Redundant item '{clave}' - discarding''')
+            if valor <= 0:
+                raise ValueError(f'Invalid value for {clave}:'
+                                 f'{valor} (must be > 0)')
             dict_argv.update({clave: valor})
 
         except ValueError as e:
@@ -35,7 +38,7 @@ def print_values(dict_argv: dict, total_values: int) -> None:
         if indi_percentage > max_percentage:
             name_max, value_name_max = clave, valor
             max_percentage = indi_percentage
-        if indi_percentage < min_percentage:
+        if indi_percentage <= min_percentage:
             name_min, value_name_min = clave, valor
             min_percentage = indi_percentage
 
@@ -47,20 +50,26 @@ def print_values(dict_argv: dict, total_values: int) -> None:
 
 def main() -> None:
     print('=== Análisis del Sistema de Inventario ===')
-    list_argv = sys.argv[1:]
-    dict_argv = dict_errors(list_argv)
+    if len(sys.argv[1:]) >= 1:
+        list_argv = sys.argv[1:]
+        dict_argv = dict_errors(list_argv)
 
-    print(f'\nGot inventory: {dict_argv}')
+        if dict_argv:
 
-    dict_keys = list(dict.keys(dict_argv))
-    print(f'Item list: {dict_keys}')
+            print(f'\nGot inventory: {dict_argv}')
 
-    total_values = sum(dict.values(dict_argv))
-    print(f'\nTotal quantity of the {len(dict_keys)} items: {total_values}')
-    print_values(dict_argv, total_values)
+            dict_keys = list(dict.keys(dict_argv))
+            print(f'Item list: {dict_keys}')
 
-    dict_argv.update({'magic_item': 1})
-    print(f'\nUpdated inventory: {dict_argv}')
+            total_values = sum(dict.values(dict_argv))
+            print(f'\nTotal quantity of the {len(dict_keys)} '
+                  f'items: {total_values}')
+            print_values(dict_argv, total_values)
+
+            dict_argv.update({'magic_item': 1})
+            print(f'\nUpdated inventory: {dict_argv}')
+    else:
+        print('****Enter elements <key>:<value>')
 
 
 if __name__ == '__main__':
