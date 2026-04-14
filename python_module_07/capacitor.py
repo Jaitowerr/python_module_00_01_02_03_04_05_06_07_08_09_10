@@ -15,6 +15,7 @@ def test_heal(factory: HealingCreatureFactory) -> None:
     print(evolved.describe())
     print(evolved.attack())
     print(evolved.heal())
+    print()
 
 
 def test_transform(factory: TransformCreatureFactory) -> None:
@@ -33,6 +34,7 @@ def test_transform(factory: TransformCreatureFactory) -> None:
     print(evolved.transform())
     print(evolved.attack())
     print(evolved.revert())
+    print()
 
 
 def main() -> None:
